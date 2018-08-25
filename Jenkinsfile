@@ -1,10 +1,15 @@
 pipeline {
-  agent any
-  stages {
-    stage('error') {
-      steps {
-        git(url: 'https://github.com/halevin/testJenkins', branch: 'master', credentialsId: 'halevin')
-      }
+    agent {
+        docker {
+            image 'maven:3-alpine' 
+            args '-v /root/.m2:/root/.m2' 
+        }
     }
-  }
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'mvn -B -DskipTests clean package' 
+            }
+        }
+    }
 }
