@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('error') {
       steps {
-        sh 'mvn package'
+        git(url: 'https://github.com/halevin/testJenkins', branch: 'master', credentialsId: 'halevin')
       }
     }
   }
